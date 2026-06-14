@@ -1,0 +1,30 @@
+{
+  "name": "simulador-8-riquezas",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "build": "tsc -b && vite build",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "chart.js": "^4.4.4",
+    "d3": "^7.9.0",
+    "plotly.js": "^2.35.0",
+    "react-plotly.js": "^2.6.0",
+    "chartjs-plugin-annotation": "^3.0.1",
+    "react": "^18.3.1",
+    "react-chartjs-2": "^5.2.0",
+    "react-dom": "^18.3.1"
+  },
+  "devDependencies": {
+    "@types/d3": "^7.4.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "@vitejs/plugin-react": "^4.3.4",
+    "sass": "^1.80.0",
+    "typescript": "~5.6.2",
+    "vite": "^6.0.0"
+  }
+}

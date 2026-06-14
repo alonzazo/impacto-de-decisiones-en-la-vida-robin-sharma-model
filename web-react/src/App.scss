@@ -1,0 +1,370 @@
+@use 'styles/variables' as *;
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Segoe UI', system-ui, sans-serif;
+  background: $bg;
+  color: $text;
+  min-height: 100vh;
+}
+
+h1 {
+  color: $white;
+  font-size: 1.5em;
+  font-weight: 700;
+}
+
+h2 {
+  color: $accent;
+  font-size: 0.95em;
+  font-weight: 600;
+  margin: 12px 0 6px;
+  cursor: pointer;
+  user-select: none;
+
+  &:hover {
+    color: $white;
+  }
+
+  &::before {
+    content: '▸ ';
+    font-size: 0.8em;
+  }
+
+  &.open::before {
+    content: '▾ ';
+  }
+}
+
+// === LAYOUT ===
+.layout {
+  display: grid;
+  grid-template-columns: $sidebar-width 1fr;
+  grid-template-rows: auto 1fr;
+  min-height: 100vh;
+
+  @media (max-width: $mobile-break) {
+    grid-template-columns: 1fr;
+  }
+}
+
+.header {
+  grid-column: 1 / -1;
+  padding: 12px 20px;
+  background: $bg2;
+  border-bottom: 1px solid $border;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.sidebar {
+  overflow-y: auto;
+  background: $bg3;
+  border-right: 1px solid $border;
+  padding: 10px 14px;
+  max-height: calc(100vh - 50px);
+
+  @media (max-width: $mobile-break) {
+    max-height: none;
+  }
+}
+
+.main {
+  display: flex;
+  flex-direction: column;
+  padding: 12px;
+}
+
+// === CHART ===
+.chart-container {
+  flex: 1;
+  position: relative;
+  min-height: 400px;
+}
+
+// === RESULTS ===
+.results {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: 10px;
+  margin-top: 12px;
+}
+
+.result-card {
+  background: $bg2;
+  border: 1px solid $border;
+  border-radius: 8px;
+  padding: 10px 14px;
+
+  .label {
+    font-size: 0.75em;
+    opacity: 0.7;
+  }
+
+  .value {
+    font-size: 1.3em;
+    font-weight: 700;
+    color: $white;
+
+    &.gold {
+      color: $din;
+    }
+
+    &.green {
+      color: $bien;
+    }
+  }
+}
+
+// === SIDEBAR SECTIONS ===
+.section {
+  margin-bottom: 2px;
+}
+
+.section-body {
+  display: none;
+  padding: 2px 0 6px;
+
+  &.open {
+    display: block;
+  }
+}
+
+// === FIELDS ===
+/* Info Tooltip */
+.info-tooltip-wrapper {
+  position: relative;
+  display: inline-block;
+  margin-left: 4px;
+  cursor: help;
+}
+.info-tooltip-icon {
+  font-size: 0.7em;
+  opacity: 0.4;
+  color: #00d2ff;
+  &:hover { opacity: 1; }
+}
+.info-tooltip-wrapper:hover .info-tooltip-popup {
+  display: block;
+}
+.info-tooltip-popup {
+  display: none;
+  position: absolute;
+  bottom: 120%;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #1a1a3ef0;
+  color: #c8d6e5;
+  border: 1px solid #00d2ff40;
+  border-radius: 6px;
+  padding: 8px 10px;
+  font-size: 0.7em;
+  line-height: 1.4;
+  width: 220px;
+  z-index: 100;
+  pointer-events: none;
+  white-space: normal;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+  &::after {
+    content: '';
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    margin-left: -5px;
+    border-width: 5px;
+    border-style: solid;
+    border-color: #1a1a3ef0 transparent transparent transparent;
+  }
+}
+
+.field {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin: 3px 0;
+  gap: 6px;
+
+  label {
+    font-size: 0.8em;
+    flex: 1;
+  }
+
+  input[type='number'],
+  input[type='text'] {
+    width: 85px;
+    background: $bg;
+    color: $white;
+    border: 1px solid $border;
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-size: 0.82em;
+    text-align: right;
+  }
+
+  input[type='checkbox'] {
+    width: 16px;
+    height: 16px;
+    accent-color: $accent;
+  }
+
+  select {
+    background: $bg;
+    color: $white;
+    border: 1px solid $border;
+    border-radius: 4px;
+    padding: 3px 5px;
+    font-size: 0.8em;
+  }
+}
+
+// === BUTTONS ===
+.btn {
+  background: $accent;
+  color: $bg;
+  border: none;
+  border-radius: 6px;
+  padding: 8px 20px;
+  font-size: 0.95em;
+  font-weight: 700;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 10px;
+
+  &:hover {
+    background: $white;
+  }
+}
+
+.btn-sm {
+  padding: 3px 8px;
+  font-size: 0.78em;
+  width: auto;
+  margin: 3px 2px;
+}
+
+.btn-danger {
+  background: $aven;
+}
+
+// === VIAJES ===
+.viaje-row {
+  display: flex;
+  gap: 3px;
+  align-items: center;
+  margin: 3px 0;
+  font-size: 0.78em;
+
+  input {
+    width: 55px;
+    background: $bg;
+    color: $white;
+    border: 1px solid $border;
+    border-radius: 4px;
+    padding: 3px 6px;
+    font-size: 0.82em;
+    text-align: right;
+  }
+
+  input.dest {
+    width: 70px;
+    text-align: left;
+  }
+}
+
+// === EVENTS ===
+.events-list {
+  margin-top: 10px;
+}
+
+.event-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 0;
+  font-size: 0.8em;
+  border-bottom: 1px solid $border;
+}
+
+.event-icon {
+  font-size: 1em;
+}
+
+.event-age {
+  color: $accent;
+  font-weight: 600;
+  min-width: 50px;
+}
+
+// === PRIORIDADES ===
+.prioridades-grid {
+  display: grid;
+  grid-template-columns: 55px repeat(8, 1fr);
+  gap: 1px;
+  font-size: 0.7em;
+  margin: 4px 0;
+
+  .ph {
+    color: $accent;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  input {
+    width: 100%;
+    text-align: center;
+    background: $bg;
+    color: $white;
+    border: 1px solid $border;
+    border-radius: 2px;
+    padding: 2px;
+    font-size: 0.85em;
+  }
+}
+
+// === UMBRALES ===
+.umbrales {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-top: 6px;
+}
+
+.umbral {
+  font-size: 0.85em;
+  padding: 3px 6px;
+  border-radius: 4px;
+  background: $bg2;
+  border: 1px solid $border;
+
+  &.reached {
+    border-color: $bien;
+    color: $bien;
+  }
+
+  &.not-reached {
+    opacity: 0.5;
+  }
+}
+
+// === SAVINGS BAR ===
+.savings-bar {
+  margin-top: 6px;
+  font-size: 0.8em;
+  color: $accent;
+}
+
+// === MONTE CARLO RESULTS ===
+.mc-results {
+  font-size: 0.75em;
+  margin-top: 8px;
+  padding: 8px;
+  background: $bg2;
+  border-radius: 6px;
+  line-height: 1.5;
+}
